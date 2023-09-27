@@ -51,7 +51,9 @@ function abortar(int $codigo_http)
 {
     http_response_code($codigo_http);
     
-    die(view($codigo_http));
+    return match ($codigo_http) {
+        404 => throw new CodeIgniter\Exceptions\PageNotFoundException()
+    };
 }
 
 

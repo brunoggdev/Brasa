@@ -64,10 +64,10 @@ abstract class BaseController extends Controller
     */
     public function higienizar(mixed $dado):mixed
     {
-        return match ($dado) {
+        return match (gettype($dado)) {
             'array' => higienizaArray($dado),
             'string' => strip_tags($dado),
-            default => null
+            default => $dado
         };
     }
 

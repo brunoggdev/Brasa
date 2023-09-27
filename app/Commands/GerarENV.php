@@ -18,6 +18,7 @@ class GerarENV extends BaseCommand
 
         if (file_exists($destination)) {
             CLI::error("Aparentemente o aqruivo .env já existe.");
+            return;
         }
 
         if (copy($source, $destination)) {

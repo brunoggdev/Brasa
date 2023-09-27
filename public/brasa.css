@@ -1,0 +1,99 @@
+:root {
+    --primaria: rgba(221, 72, 20, 1);
+    --neutra: rgba(247, 248, 249, 1);
+}
+
+
+html,
+body {
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    color: rgba(33, 37, 41, 1);
+    display: grid;
+    place-items: center;
+    margin-top: 15px;
+    background-color: var(--neutra);
+}
+
+.titulo {
+    color: var(--primaria);
+    font-size: 3em;
+    text-align-last: justify;
+    margin-left: -3px;
+}
+
+
+.subtitulo {
+    color: var(--primaria);
+    font-weight: normal;
+    font-size: 1.13em;
+}
+
+
+section {
+    margin-top: 40px;
+    padding: 0 20px;
+    text-align: justify;
+}
+
+
+h4 {
+    margin-bottom: 10px;
+    color: var(--primaria);
+}
+
+
+tt {
+    background-color: white;
+    font-size: medium;
+    outline: solid 1px lightgray;
+    padding: 5px;
+}
+
+
+tt::before {
+    content: '> ';
+    position: relative;
+}
+
+
+tt::after {
+    /* apenas para facilidar copiar o texto */
+    content: ' ';
+    position: relative;
+}
+
+
+p {
+    max-width: 800px;
+}
+
+
+a {
+    color: rgba(221, 72, 20, 1);
+    font-weight: 600;
+}
+
+
+a:hover {
+    color: rgba(221, 72, 20, 1);
+    text-decoration: underline;
+}
+
+
+/* styles login */
+.loginPage {
+    place-self: center;
+    width: 380px;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 20px 50px 40px;
+    box-shadow: 0 6px 35px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+
+.loginPage * {
+    box-sizing: border-box;
+}

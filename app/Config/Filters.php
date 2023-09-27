@@ -2,6 +2,8 @@
 
 namespace Config;
 
+use App\Filters\IsAdmin;
+use App\Filters\UsuarioLogado;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -21,6 +23,8 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'logado'        => UsuarioLogado::class,
+        'admin'         => [UsuarioLogado::class, IsAdmin::class]
     ];
 
     /**

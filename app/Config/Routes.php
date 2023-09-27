@@ -29,7 +29,38 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+
+// rota inicial
+$routes->get('/', 'PaginasController::index');
+
+// especifique rotas que deseja realizar alguma lógica antes enviar resposta
+$routes->get('/login', 'PaginasController::login');
+
+$routes->post('login', 'UsuariosController::login');
+
+//rotas restritas para usuarios logados
+$routes->group('', ['filter' => 'logado'], function ($routes){
+
+    // Utilize "/" após o nome do método para passar parametros para ele
+    $routes->get('home', 'PaginasController::mostrar/home');
+
+    $routes->post('logout', 'UsuariosController::logout');
+});
+
+
+// rotas exclusivas para admin
+$routes->group('', ['filter' => 'admin'], function ($routes){
+
+    $routes->get('usuarios', 'UsuariosController::index');
+    $routes->post('usuarios/criar', 'UsuariosController::criar');
+    $routes->post('usuarios/editar', 'UsuariosController::editar');
+    
+});
+
+
+// rota padrão: caso não tenha sido mapeada nas rotas específicas acima, esta
+// irá buscar uma view com o nome requisitado na url (útil para páginas estáticas).
+$routes->get('(:any)', 'PaginasController::mostrar/$1');
 
 /*
  * --------------------------------------------------------------------

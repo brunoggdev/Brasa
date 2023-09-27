@@ -16,7 +16,7 @@ class GerarJS extends BaseCommand
         $name = $params[0] ?? CLI::prompt('Qual o nome do arquivo que deve ser criado?', null, 'required|string');
         $dir = ROOTPATH . '/public/js';
 
-        $contents = "/// <reference path=\"jquery.min.js\" />\n/// <reference path=\"helpers.js\" />\n'use strict';\n/**linhas de configuração acima, evite apagar. @author Brunoggdev*/\n\n";
+        $contents = "/// <reference path=\"jquery.min.js\" />\n/// <reference path=\"helpers_brasa.js\" />\n'use strict';\n/**linhas de configuração acima, evite apagar. @author Brunoggdev*/\n\n";
 
         if (! is_dir($dir)) {
             CLI::error("The specified directory '{$dir}' does not exist.");
@@ -31,9 +31,9 @@ class GerarJS extends BaseCommand
         }
 
         if (write_file($file, $contents)) {
-            CLI::write("O arquivo '{$name}' foi criado com sucesso.", 'green');
+            CLI::write("O arquivo '{$name}.js' foi criado com sucesso.", 'green');
         } else {
-            CLI::error("Erro ao criar o arquivo '{$name}'.");
+            CLI::error("Erro ao criar o arquivo '{$name}.js'.");
         }
     }
 }
