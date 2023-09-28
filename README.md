@@ -25,9 +25,9 @@ O projeto conta ainda com:
 Após baixar o projeto, execute o comando "php spark serve" no terminal na raiz do projeto para inciar o servidor e então
 conferir a página inicial que contem instruções sobre como iniciar o projeto.
 
-Todas as funções auxiliares estão no arquivo "Common.php" dentro da pasta app, você pode conferir o arquivo pra saber o que mais tem
-a sua disposição e, por estarem devidamente comentadas, sua IDE deve te ajudar a identifica-las. Sinta-se também livre para adicionar
-quaisquer outras funções que quiser neste arquivo.
+Todas as funções auxiliares estão nos arquivos "helpers_brasa.js" na pasta public e "Common.php" dentro da pasta app. 
+Você pode conferir o arquivo pra saber o que mais tema sua disposição e, por estarem devidamente comentadas, 
+sua IDE deve te ajudar a identifica-las. Sinta-se também livre para adicionarquaisquer outras funções que quiser nestes arquivos.
 
 <br/>
 
