@@ -95,6 +95,7 @@ function renderizaPagina(string $page, array $data = []):string
     return view('templates/header', $data)
         .view($page)
         .importarJS($page, true)
+        .template("modais_brasa")
         .template("modais_$page")
         .view('templates/footer');
 }

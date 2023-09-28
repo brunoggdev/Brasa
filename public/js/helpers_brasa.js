@@ -2,11 +2,30 @@
 'use strict'; 
 /**linhas de configuração acima, evite apagar. @author Brunoggdev*/
 
+/**
+ * ==-==-==-==-== SUMÁRIO DE FUNÇÕES AUXILIARES ==-==-==-==-==-==
+ * 
+ * @function onClick() adiciona um evento jquery para click
+ * @function delegarOnClick() Similar mas para conteúdo gerado com JS como tabelas
+ * @function modal() abre uma modal do bootstrap
+ * @function alertar() abre uma modal para alerta
+ * @function confirmar() abre uma modal para confirmação
+ * @function paraDiaMesAno() converte data yyyy-mm-dd para dd/mm/yyyy
+ * @function paraAnoMesDia() converte data dd/mm/yyyy para yyyy-mm-dd
+ * @function requisicaoGet() requisicao get com jquery
+ * @function requisicaoPost() requisicao post com jquery
+ * @function linhaParaObjeto() mapeia linha de tabela para objeto
+ * @function String.prototype.formatarBRL() permite chamar formatarBRL() em strings
+ */
+
+
+
+
 
 /**
- * Permite que o metodo formatarBRL() seja chamado em qualquer string para formata-la
+ * Permite que o metodo formatarBRL() seja chamado em qualquer string para formata-la em reais
  * @author Brunoggdev
- */
+*/
 String.prototype.formatarBRL = function() {
     const formatado = this.replace(/,/g, '').replace(',', '.');
     const value = parseFloat(formatado);
@@ -27,7 +46,7 @@ String.prototype.formatarBRL = function() {
  * @param {string} data
  * @returns {string} String com a data em formato dd/mm/yyyy
  * @author Bruno
- */
+*/
 function paraDiaMesAno(data) {
     return data.split("-").reverse().join('/');
 }
@@ -38,7 +57,7 @@ function paraDiaMesAno(data) {
  * @param {string} data
  * @returns {string} String com a data em formato yyyy-mm-dd
  * @author Bruno
- */
+*/
 function paraAnoMesDia(data) {
     return data.split("/").reverse().join('-');
 }
@@ -46,24 +65,24 @@ function paraAnoMesDia(data) {
 
 /**
  * Atalho para atribuir um evento onclick evitando bug de duplo-evento
- * @param {string} jQuerySelector seletor de elemento tal qual jquery
+ * @param {string} seletor_jquery seletor de elemento tal qual jquery
  * @param {function(object):void} callback Funcao a ser executada no click
  * @author Brunoggdev
 */
-function onClick(jQuerySelector, callback) {
-    $(jQuerySelector).off('click').on('click', callback)
+function onClick(seletor_jquery, callback) {
+    $(seletor_jquery).off('click').on('click', callback)
 }
 
 
 /**
  * Atalho para delegar um evento de um seletor para outro (útil para elementos gerados dinamicamente como tabelas)
- * @param {string} parentSelector seletor jquery do elemento que terá o evento delegado
- * @param {string} childSelector seletor jquery do elemnto receberá o evento
+ * @param {string} seletor_jquery_pai seletor jquery do elemento pai (ex: id da tabela)
+ * @param {string} seletor_jquery_filho seletor jquery do elemento filho (ex: classe do botão na linha da tabela)
  * @param {function(object):void} callback Funcao a ser executada no click
  * @author Brunoggdev
 */
-function delegarOnClick(jQuerySelector, childSelector, callback) {
-    $(jQuerySelector).off('click', childSelector).on('click', childSelector, callback)
+function delegarOnClick(seletor_jquery_pai, seletor_jquery_filho, callback) {
+    $(seletor_jquery_pai).off('click', seletor_jquery_filho).on('click', seletor_jquery_filho, callback)
 }
 
 
@@ -87,6 +106,52 @@ function modal(id_modal) {
     
     return modal
 }
+
+
+/**
+ * Atalho para abrir a modal de alerta
+ * @param {string} texto mensagem do corpo da modal (pode ser em formato html)
+ * @param {function(object):void|false} fechar Funcao opcional quando fechar a modal
+ * @author Brunoggdev
+*/
+function alertar(texto, fechar = () => {}) {
+    $('#alerta-brasa-mensagem').html(texto)
+    
+    const alerta = modal('alerta-brasa')
+    alerta.hide()
+
+    $('#alerta-brasa').off('hidden.bs.modal').on('hidden.bs.modal', function() {
+        fechar()
+    })
+
+    alerta.show()
+}
+
+
+
+/**
+ * Atalho para abrir a modal de confirmação
+ * @param {string} texto mensagem do corpo da modal (pode ser em formato html)
+ * @param {function(object):void} callback Funcao a ser executada caso confirme
+ * @param {function(object):void|false} cancelar Funcao opcional para caso cancelar
+ * @author Brunoggdev
+*/
+function confirmar(texto, callback, cancelar = () => {}) {
+    $('#confirmacao-brasa-texto').html(texto)
+
+    const confirmacao = modal('confirmacao-brasa')
+    confirmacao.hide()
+
+    onClick('#confirmacao-brasa-confirmar', function() {
+        callback()
+        confirmacao.hide()
+    })
+    onClick('#confirmacao-brasa-cancelar', function() {
+        cancelar()
+        confirmacao.hide()
+    })
+}
+
 
 
 /**
