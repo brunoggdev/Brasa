@@ -65,35 +65,35 @@ class UsuariosController extends BaseController
         $usuario = $this->dadosPost('usuario');
         $senha = $this->dadosPost('senha');
         
-        $usuarioAutenticado = (new UsuariosModel)->autenticar($usuario, $senha);
+        $usuario_autenticado = (new UsuariosModel)->autenticar($usuario, $senha);
 
-        if (! $usuarioAutenticado) {
-            return redirect('login')->with('email', $usuario)->
-            with('mensagem', [
-                'texto' => 'Email e/ou senha inválidos.',
-                'cor' => 'danger'
-            ]);
+        if (! $usuario_autenticado) {
+            return redirect('login')
+                ->with('usuario_antigo', $usuario)
+                ->with('mensagem', [
+                    'texto' => 'Usuario e/ou senha inválidos.',
+                    'cor' => 'danger'
+                ]);
         }
 
-        $usuarioAutenticado['logado'] = true;
+        $usuario_autenticado['logado'] = true;
 
-        session()->set('usuario', $usuarioAutenticado);
+        session()->set('usuario', $usuario_autenticado);
+        session()->regenerate();
 
         return redirect('home'); 
     }
 
 
     /**
-    * Destroi a sessão e redireciona para pagina de login
+    * Destrói a sessão e redireciona para pagina de login
     * @author Brunoggdev
     */
     public function logout()
     {
         session()->remove('usuario');
+        session()->destroy();
 
-        return redirect('login')->with('mensagem', [
-            'texto' => 'Logout efetuado com sucesso.',
-            'cor' => 'success'
-        ]);
+        return redirect('login');
     }
 }

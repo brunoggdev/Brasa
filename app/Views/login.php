@@ -8,16 +8,12 @@
         <h3 class="mb-0 ml-2 text-center">Login</h3>
         <hr>
         <div class="form-group form-group-icon">
-            <input type="text" class="form-control border mb-4" name="usuario" placeholder="Usuario" required>
+            <input type="text" value="<?=session('usuario_antigo')??''?>" class="form-control border mb-4" name="usuario" placeholder="Usuario" required>
         </div>
 
         <div class="form-group form-group-icon">
             <input type="password" class="form-control border mb-4" name="senha" placeholder="Senha" required>
         </div>
-
-        <?php if (session()->has('mensagem')) : ?>
-            <div class='alert alert-<?= getMsgBrasa('cor') ?>'><?= getMsgBrasa('texto') ?></div>
-        <?php endif; ?>
 
         <div class="form-group">
             <button type="submit" class="btn btn-success text-uppercase w-100">Entrar</button>
